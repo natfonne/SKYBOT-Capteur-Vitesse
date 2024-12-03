@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitesse et Sens de Rotation des Moteurs</title>
+  <script>
+    // Fonction pour récupérer les données du serveur ESP32
+    function updateData() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/data", true);  // Requête GET vers l'ESP32
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          // Parse JSON et afficher les données
+          var data = JSON.parse(xhr.responseText);
+          document.getElementById("vitesse").innerText = "Vitesse: " + data.vitesse + " m/s";
+          document.getElementById("sens").innerText = "Sens: " + data.sens;
+        }
+      };
+      xhr.send();
+    }
+
+    // Mettre à jour les données toutes les 1 seconde
+    setInterval(updateData, 1000);
+  </script>
+</head>
+<body>
+  <h1>Vitesse et Sens de Rotation des Moteurs</h1>
+  <div id="vitesse">Chargement...</div>
+  <div id="sens">Chargement...</div>
+</body>
+</html>
