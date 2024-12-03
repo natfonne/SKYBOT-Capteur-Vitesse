@@ -1,32 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vitesse et Sens de Rotation des Moteurs</title>
-  <script>
-    // Fonction pour récupérer les données du serveur ESP32
-    function updateData() {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/data", true);  // Requête GET vers l'ESP32
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          // Parse JSON et afficher les données
-          var data = JSON.parse(xhr.responseText);
-          document.getElementById("vitesse").innerText = "Vitesse: " + data.vitesse + " m/s";
-          document.getElementById("sens").innerText = "Sens: " + data.sens;
-        }
-      };
-      xhr.send();
-    }
-
-    // Mettre à jour les données toutes les 1 seconde
-    setInterval(updateData, 1000);
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page SNBot</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <h1>Vitesse et Sens de Rotation des Moteurs</h1>
-  <div id="vitesse">Chargement...</div>
-  <div id="sens">Chargement...</div>
+
+    <h1>Projet SNBot</h1>
+
+    <!-- Affichage de la vitesse -->
+    <p>Vitesse du moteur (RPM) = <strong><span id="vitesse">Chargement...</span></strong></p>
+
+    <!-- Commandes de contrôle de la LED -->
+    <p><button class="button" onclick="FonctionON()">ON</button></p>
+    <p><button class="button button2" onclick="FonctionOFF()">OFF</button></p>
+
+    <!-- Le fichier javascript doit toujours être lu en dernier -->
+    <script src="./index.js"></script>
+
 </body>
 </html>
