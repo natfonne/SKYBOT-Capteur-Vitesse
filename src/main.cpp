@@ -1,33 +1,37 @@
-#include <ESP32Encoder.h>
 #include <Arduino.h>
 
-// Pin pour le signal du capteur Hall (vous pouvez utiliser GPIO 32 ou tout autre GPIO disponible)
-const int hallSensorPinA = 32;  // Signal du capteur Hall (A)
-
-ESP32Encoder encoder;  
+// Déclaration des variables
+const int boutonPin = 4;  // Le bouton poussoir est connecté à la broche 2
+int etatBouton = 0;       // Variable pour enregistrer l'état actuel du bouton
+int compteurImpulsions = 0; // Compteur des impulsions du bouton
 
 void setup() {
-  // Initialisation du port série pour afficher les résultats
+  // Initialiser la broche du bouton poussoir en entrée avec résistance pull-up
+  pinMode(boutonPin, INPUT_PULLUP);
+  
+  // Initialiser la communication série
   Serial.begin(115200);
-
-  // Attacher le signal du capteur Hall à l'encodeur (utilisation de GPIO 32)
-  encoder.attachHalfQuad(hallSensorPinA, -1);  // Le signal A sur GPIO 32
-
-  // Configurer le pin du capteur Hall comme entrée
-  pinMode(hallSensorPinA, INPUT);
-
-  // Affichage de message initial sur le moniteur série
-  Serial.println("Capteur à effet Hall prêt !");
 }
 
 void loop() {
-  // Récupérer le comptage des impulsions
-  int count = encoder.getCount();  // Nombre d'impulsions lues
-
-  // Afficher le comptage des impulsions sur le moniteur série
-  Serial.print("Comptage des impulsions : ");
-  Serial.println(count);
-
-  // Ajouter un petit délai avant de lire à nouveau
-  delay(500);  // Attendre 500ms
+  // Lire l'état du bouton poussoir
+  etatBouton = digitalRead(boutonPin);
+  
+  // Si le bouton est appuyé (état bas, car la broche est en pull-up)
+  if (etatBouton == LOW) {
+    // Incrémenter le compteur d'impulsions
+    compteurImpulsions++;
+    
+    // Attendre que le bouton soit relâché (pour éviter plusieurs comptages pour une seule pression)
+    while (digitalRead(boutonPin) == LOW) {
+      delay(10); // Petites pauses pour éviter de trop saturer la boucle
+    }
+  }
+  
+  // Afficher le nombre d'impulsions dans le moniteur série
+  Serial.print("Nombre d'impulsions : ");
+  Serial.println(compteurImpulsions);
+  
+  // Petite pause pour la lisibilité
+  delay(150);
 }
