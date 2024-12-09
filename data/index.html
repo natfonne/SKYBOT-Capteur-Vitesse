@@ -1,25 +1,18 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Page SNBot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="data:,">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
     <h1>Projet SNBot</h1>
-
-    <!-- Affichage de la vitesse -->
-    <p>Vitesse du moteur (RPM) = <strong><span id="vitesse">Chargement...</span></strong></p>
-
-    <!-- Commandes de contrôle de la LED -->
+    <p>Vitesse du moteur : <strong><span id="VALEUR"></span></strong> RPM</p>
+    <p>Direction : <strong><span id="SENS"></span></strong></p>
     <p><button class="button" onclick="FonctionON()">ON</button></p>
     <p><button class="button button2" onclick="FonctionOFF()">OFF</button></p>
 
-    <!-- Le fichier javascript doit toujours être lu en dernier -->
     <script src="./index.js"></script>
-
 </body>
 </html>

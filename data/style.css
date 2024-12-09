@@ -2,24 +2,24 @@ html {
     font-family: Helvetica;
     margin: 0px auto;
     text-align: center;
-    }
-    h1 {
+}
+h1 {
     color: #0F3376;
     padding: 2vh;
-    }
-    p {
+}
+p {
     font-size: 24px;
-    }
-    .button {
+}
+.button {
     background-color: #4CAF50; /* Vert */
     border: none;
-    border-radius: 6px; /* Angle arrondi */
+    border-radius: 6px;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     font-size: 30px;
-    }
-    .button2 {
+}
+.button2 {
     background-color: #f44336; /* Rouge */
-    }
+}

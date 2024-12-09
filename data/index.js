@@ -1,41 +1,25 @@
-let socket;
+// Se connecter au serveur WebSocket
+var ws = new WebSocket(`ws://${window.location.hostname}/ws`);
 
-function setupWebSocket() {
-    // Connexion WebSocket à l'ESP32
-    socket = new WebSocket('ws://' + window.location.hostname + '/ws');
-    
-    socket.onopen = function(event) {
-        console.log("Connexion WebSocket réussie");
-    };
+// Détecter l'ouverture d'une connexion avec le serveur
+ws.onopen = function(event) {
+    ws.send("Connection avec le serveur Etablie");
+    console.log("Connexion avec le serveur OK");
+};
 
-    socket.onmessage = function(event) {
-        // Lorsque la vitesse est reçue depuis l'ESP32, mettez à jour l'affichage
-        const vitesse = event.data;
-        document.getElementById("vitesse").innerText = vitesse;
-    };
+// Recevoir les données
+ws.onmessage = function(event) {
+    let data = JSON.parse(event.data);
+    document.getElementById("VALEUR").innerHTML = data.vitesse;
+    document.getElementById("SENS").innerHTML = data.sens;
+};
 
-    socket.onerror = function(error) {
-        console.log("Erreur WebSocket: " + error);
-    };
-
-    socket.onclose = function(event) {
-        console.log("Connexion WebSocket fermée");
-    };
-}
-
-// Fonction pour allumer la LED via WebSocket
 function FonctionON() {
-    if (socket.readyState === WebSocket.OPEN) {
-        socket.send("ON");
-    }
+    ws.send("ON");
+    console.log("ON");
 }
 
-// Fonction pour éteindre la LED via WebSocket
 function FonctionOFF() {
-    if (socket.readyState === WebSocket.OPEN) {
-        socket.send("OFF");
-    }
+    ws.send("OFF");
+    console.log("OFF");
 }
-
-// Initialiser la connexion WebSocket
-setupWebSocket();
