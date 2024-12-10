@@ -1,25 +1,29 @@
 // Se connecter au serveur WebSocket
 var ws = new WebSocket(`ws://${window.location.hostname}/ws`);
 
-// Détecter l'ouverture d'une connexion avec le serveur
+// Vérification d'ouverture de la connexion WebSocket
 ws.onopen = function(event) {
-    ws.send("Connection avec le serveur Etablie");
-    console.log("Connexion avec le serveur OK");
+    console.log("Connexion avec le serveur WebSocket OK");
 };
 
-// Recevoir les données
+// Fonction qui sera appelée à la réception des messages du serveur
 ws.onmessage = function(event) {
-    let data = JSON.parse(event.data);
-    document.getElementById("VALEUR").innerHTML = data.vitesse;
-    document.getElementById("SENS").innerHTML = data.sens;
+    try {
+        let data = JSON.parse(event.data);
+        document.getElementById("VALEUR").innerHTML = data.vitesse;
+        document.getElementById("SENS").innerHTML = data.sens;
+    } catch (error) {
+        console.error("Erreur lors du traitement des données reçues:", error);
+    }
 };
 
+// Fonctions ON/OFF pour contrôler un périphérique connecté
 function FonctionON() {
     ws.send("ON");
-    console.log("ON");
+    console.log("Commande ON envoyée");
 }
 
 function FonctionOFF() {
     ws.send("OFF");
-    console.log("OFF");
+    console.log("Commande OFF envoyée");
 }
