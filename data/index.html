@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet SNBot</title>
-    <link rel="stylesheet" href="/style.css">
+  <title>Page SNBot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h1>Projet SNBot</h1>
-    <p>Vitesse du moteur : <strong><span id="VALEUR"></span></strong> RPM</p>
-    <p>Direction : <strong><span id="SENS"></span></strong></p>
-    <p><button class="button" onclick="FonctionON()">ON</button></p>
-    <p><button class="button button2" onclick="FonctionOFF()">OFF</button></p>
-    
-    <script src="/index.js"></script>
+  <h1>Projet SNBot</h1>
+  <p>Compteur bouton poussoir = <strong><span id="compteur"></span></strong></p>
+  
+  <!-- Ajout du script WebSocket -->
+  <script src="index.js"></script>
 </body>
 </html>
